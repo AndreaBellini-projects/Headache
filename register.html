@@ -3,85 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Registrazione</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .form-container {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
-    }
-    h2 {
-      text-align: center;
-      color: #333;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .button {
-      width: 100%;
-      padding: 15px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 18px;
-    }
-    .button:hover {
-      background-color: #45a049;
-    }
-    .footer {
-      text-align: center;
-      margin-top: 10px;
-    }
-  </style>
+  <title>Registrazione Firebase</title>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Crea il tuo Account</h2>
-    <input type="email" id="regEmail" placeholder="Email" required>
-    <input type="password" id="regPassword" placeholder="Password" required>
-    <input type="password" id="regConfirmPassword" placeholder="Conferma Password" required>
-    <button class="button" onclick="register()">Registrati</button>
-    <div class="footer">
-      <p>Hai già un account? <a href="login.html">Accedi</a></p>
-    </div>
-  </div>
+  <h2>Registrati</h2>
+  <input type="email" id="regEmail" placeholder="Email">
+  <input type="password" id="regPassword" placeholder="Password">
+  <button onclick="register()">Registrati</button>
+
+  <p>Hai già un account? <a href="login.html">Accedi</a></p>
+
+  <!-- ✅ SDK Firebase compatibili -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-    // Aggiungi il codice di registrazione qui
-    function register() {
-      const email = document.getElementById('regEmail').value;
-      const password = document.getElementById('regPassword').value;
-      const confirmPassword = document.getElementById('regConfirmPassword').value;
-      
-      if (password !== confirmPassword) {
-        alert("Le password non corrispondono!");
-        return;
-      }
+    const firebaseConfig = {
+      apiKey: "AIzaSyCtrDYb1hYf1ymuLVOtOwQ2I0C__bvHhR4",
+      authDomain: "headache-6994c.firebaseapp.com",
+      projectId: "headache-6994c",
+      storageBucket: "headache-6994c.firebasestorage.app",
+      messagingSenderId: "942705950079",
+      appId: "1:942705950079:web:7fd510025139d51d88ae4a",
+      measurementId: "G-MXN2NJEYF6"
+    };
 
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-          alert("Registrazione avvenuta con successo!");
-          window.location.href = "index.html"; // Ritorna alla pagina iniziale
+    // Inizializza Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function register() {
+      const email = document.getElementById("regEmail").value;
+      const password = document.getElementById("regPassword").value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert("Registrazione avvenuta!");
+          window.location.href = "login.html";  // Dopo la registrazione, redirigi alla pagina di login
         })
-        .catch(error => {
+        .catch((error) => {
           alert("Errore: " + error.message);
         });
     }
