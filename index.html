@@ -20,12 +20,12 @@
   <p id="status">Non loggato</p>
   <button onclick="logout()">Logout</button>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+  <!-- ✅ SDK Firebase compatibili -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-      const firebaseConfig = {
+   const firebaseConfig = {
     apiKey: "AIzaSyCtrDYb1hYf1ymuLVOtOwQ2I0C__bvHhR4",
     authDomain: "headache-6994c.firebaseapp.com",
     projectId: "headache-6994c",
@@ -39,42 +39,44 @@
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
 
-    // Registrazione
     function register() {
       const email = document.getElementById("regEmail").value;
       const password = document.getElementById("regPassword").value;
       auth.createUserWithEmailAndPassword(email, password)
-        .then(user => {
+        .then(userCredential => {
           alert("Registrazione avvenuta!");
         })
         .catch(error => {
-          alert(error.message);
+          alert("Errore: " + error.message);
         });
     }
 
-    // Login
     function login() {
       const email = document.getElementById("loginEmail").value;
       const password = document.getElementById("loginPassword").value;
       auth.signInWithEmailAndPassword(email, password)
-        .then(user => {
-          alert("Login effettuato");
+        .then(userCredential => {
+          alert("Login riuscito!");
         })
         .catch(error => {
-          alert(error.message);
+          alert("Errore: " + error.message);
         });
     }
 
-    // Logout
     function logout() {
-      auth.signOut();
-      document.getElementById("status").innerText = "Non loggato";
+      auth.signOut().then(() => {
+        document.getElementById("status").innerText = "Non loggato";
+      });
     }
 
-    // Monitoraggio dello stato
     auth.onAuthStateChanged(user => {
       document.getElementById("status").innerText = user ? `Loggato come ${user.email}` : "Non loggato";
     });
   </script>
 </body>
 </html>
+
+
+
+
+
