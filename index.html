@@ -20,16 +20,12 @@
   <p id="status">Non loggato</p>
   <button onclick="logout()">Logout</button>
 
-  <!-- ✅ SDK Firebase compatibili -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-
   <!-- ✅ SDK Firebase versione 8 -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-    // ✅ Configurazione Firebase (già corretta)
+    // Configurazione Firebase
     var firebaseConfig = {
       apiKey: "AIzaSyCtrDYb1hYf1ymuLVOtOwQ2I0C__bvHhR4",
       authDomain: "headache-6994c.firebaseapp.com",
@@ -40,7 +36,7 @@
       measurementId: "G-MXN2NJEYF6"
     };
 
-    // ✅ Inizializzazione Firebase
+    // Inizializzazione Firebase
     firebase.initializeApp(firebaseConfig);
     var auth = firebase.auth();
 
@@ -78,11 +74,5 @@
       document.getElementById("status").innerText = user ? `Loggato come ${user.email}` : "Non loggato";
     });
   </script>
-
 </body>
 </html>
-
-
-
-
-
